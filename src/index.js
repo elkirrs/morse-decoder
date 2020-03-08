@@ -35,12 +35,42 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    ' ':      ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+    let numberArray = expr.split(/(\d{10})/).filter(function (el) {
+        return el != '';
+    });
+    let result = '';
+    for (i = 0; i < numberArray.length; i++) {
+        let array = arr(numberArray[i]);
+        result += MORSE_TABLE[newArr(array)];
+    }
+    return result;
+}
+
+function arr(numberArray)
+{
+    return numberArray.split(/(\d{2})/).filter(function (el) {
+        return el != '';
+    });
+}
+
+function newArr(arr) {
+    return arr.map(function(item, i) {
+        if (item == 10) {
+            return '.';
+        }
+        if (item == 11) {
+            return '-';
+        }
+        if (item == '**********') {
+            return ' ';
+        }
+    }).join('');
 }
 
 module.exports = {
     decode
-}
+};
